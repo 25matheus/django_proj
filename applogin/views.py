@@ -12,6 +12,7 @@ def home(request):
     return render(request, "authentication/index.html")
 def signup(request):
     if request.method == "POST":
+        #Getting the sign up info from the user via POST to create a new user
         username = request.POST['username']
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
@@ -38,13 +39,13 @@ def signin(request):
         if user is not None:
             login(request, user)
             firstname = user.first_name
-            return render(request, "authentication/index.html", {'fname':firstname})
+            return render(request, "authentication/index.html", {'fname':firstname}) #passing the first name to the index page to be used with the Hello message
         else:
             messages.error(request, "incorrect credentials")
             return redirect('home')
     return render(request, "authentication/signin.html")
 
 def signout(request):
-    logout(request)
+    logout(request) # imported from logout
     messages.success(request, "Logged Out")
     return redirect('home')
